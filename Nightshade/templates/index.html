@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Protection Tool</title>
+    <style>
+        .slider-container {
+            margin-bottom: 10px;
+        }
+        .slider-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+    <script>
+        function resetValues() {
+            document.getElementById('perturbation_level').value = '0.05';
+            document.getElementById('watermark_amplitude').value = '0.02';
+            document.getElementById('compression_threshold').value = '0.1';
+            document.getElementById('compression_ratio').value = '4';
+            document.getElementById('distortion_intensity').value = '0.1';
+            document.getElementById('volume_target').value = '0.07';
+
+            // Optional: Update labels if you have them
+            document.getElementById('perturbation_level_label').innerText = 'Perturbation Level: 0.05';
+            document.getElementById('watermark_amplitude_label').innerText = 'Watermark Amplitude: 0.02';
+            document.getElementById('compression_threshold_label').innerText = 'Compression Threshold: 0.1';
+            document.getElementById('compression_ratio_label').innerText = 'Compression Ratio: 4';
+            document.getElementById('distortion_intensity_label').innerText = 'Distortion Intensity: 0.1';
+            document.getElementById('volume_target_label').innerText = 'Volume Target: 0.07';
+        }
+    </script>
+</head>
+<body>
+    <h1>Audio Protection Tool</h1>
+    <form action="/.netlify/functions/process_audio" method="post" enctype="multipart/form-data">
+        <label for="file">Choose an audio file:</label>
+        <input type="file" id="file" name="file" accept="audio/*" required><br><br>
+        
+        <div class="slider-container">
+            <span id="perturbation_level_label" class="slider-label">Perturbation Level: 0.05</span>
+            <input type="range" id="perturbation_level" name="perturbation_level" min="0" max="0.1" step="0.01" value="0.05" onchange="document.getElementById('perturbation_level_label').innerText = 'Perturbation Level: ' + this.value">
+        </div>
+        
+        <div class="slider-container">
+            <span id="watermark_amplitude_label" class="slider-label">Watermark Amplitude: 0.02</span>
+            <input type="range" id="watermark_amplitude" name="watermark_amplitude" min="0" max="0.1" step="0.01" value="0.02" onchange="document.getElementById('watermark_amplitude_label').innerText = 'Watermark Amplitude: ' + this.value">
+        </div>
+        
+        <div class="slider-container">
+            <span id="compression_threshold_label" class="slider-label">Compression Threshold: 0.1</span>
+            <input type="range" id="compression_threshold" name="compression_threshold" min="0" max="1" step="0.01" value="0.1" onchange="document.getElementById('compression_threshold_label').innerText = 'Compression Threshold: ' + this.value">
+        </div>
+        
+        <div class="slider-container">
+            <span id="compression_ratio_label" class="slider-label">Compression Ratio: 4</span>
+            <input type="range" id="compression_ratio" name="compression_ratio" min="1" max="10" step="0.1" value="4" onchange="document.getElementById('compression_ratio_label').innerText = 'Compression Ratio: ' + this.value">
+        </div>
+        
+        <div class="slider-container">
+            <span id="distortion_intensity_label" class="slider-label">Distortion Intensity: 0.1</span>
+            <input type="range" id="distortion_intensity" name="distortion_intensity" min="0" max="1" step="0.1" value="0.1" onchange="document.getElementById('distortion_intensity_label').innerText = 'Distortion Intensity: ' + this.value">
+        </div>
+        
+        <div class="slider-container">
+            <span id="volume_target_label" class="slider-label">Volume Target: 0.07</span>
+            <input type="range" id="volume_target" name="volume_target" min="0" max="1" step="0.01" value="0.07" onchange="document.getElementById('volume_target_label').innerText = 'Volume Target: ' + this.value">
+        </div>
+        
+        <input type="submit" value="Process and Download">
+        <button type="button" onclick="resetValues()">Reset to Default</button>
+    </form>
+</body>
+</html>
